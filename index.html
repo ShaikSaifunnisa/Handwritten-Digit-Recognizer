@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digit Recognizer — draw one, the model guesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Draw a digit.</h1>
+    <p>
+      This little CNN is built the same way as the <code>Handwritten_Digit_Recognizer.py</code>
+      script — convolutions, pooling, dropout — except it trains right here, in your browser,
+      on real MNIST digits. Give it a few seconds to study, then sketch a number and see what it guesses.
+    </p>
+  </header>
+
+  <div class="status-line">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">Warming up the chalk…</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="grid">
+    <div class="board-card">
+      <div class="canvas-shell">
+        <canvas id="draw" width="280" height="280"></canvas>
+      </div>
+      <div class="board-actions">
+        <button class="btn-erase" id="eraseBtn" disabled>Erase</button>
+        <button class="btn-guess" id="guessBtn" disabled>Guess it</button>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <p class="result-heading">Prediction</p>
+      <p class="big-digit placeholder" id="bigDigit">draw something</p>
+      <p class="confidence-note" id="confidenceNote">Its confidence for each digit will show up here.</p>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+
+  <footer>
+    <details>
+      <summary>How this differs from the Python script</summary>
+      <p>
+        Your script trains on the full 60,000-image MNIST set for up to 10 epochs using Keras.
+        A browser tab can't comfortably do that, so this version trains a smaller version of the
+        same architecture on a subset of about 8,000 digits for a handful of epochs — enough to
+        recognize clear handwriting in a few seconds, without keeping you waiting. Refresh the
+        page to train a fresh model.
+      </p>
+    </details>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
